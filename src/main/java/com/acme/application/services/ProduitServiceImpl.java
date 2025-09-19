@@ -10,8 +10,8 @@ import com.acme.application.entities.ProduitEntity;
 import com.acme.application.exceptions.ClientNotFoundException;
 import com.acme.application.exceptions.ProduitNotFoundException;
 import com.acme.application.exceptions.ProduitSkuAlreadyExistsException;
+import com.acme.application.helpers.ObjectMerger;
 import com.acme.application.mappers.ProduitMapper;
-import com.acme.application.objectmerger.ObjectMerger;
 import com.acme.application.repositories.ProduitRepository;
 
 import lombok.extern.slf4j.Slf4j;
