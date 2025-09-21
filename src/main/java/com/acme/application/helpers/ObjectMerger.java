@@ -1,4 +1,4 @@
-package com.acme.application.objectmerger;
+package com.acme.application.helpers;
 
 import java.beans.PropertyDescriptor;
 import java.util.Arrays;

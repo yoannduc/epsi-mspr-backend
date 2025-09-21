@@ -9,8 +9,8 @@ import com.acme.application.dtos.ClientDTO;
 import com.acme.application.entities.ClientEntity;
 import com.acme.application.exceptions.ClientMailAlreadyExistsException;
 import com.acme.application.exceptions.ClientNotFoundException;
+import com.acme.application.helpers.ObjectMerger;
 import com.acme.application.mappers.ClientMapper;
-import com.acme.application.objectmerger.ObjectMerger;
 import com.acme.application.repositories.ClientRepository;
 
 import lombok.extern.slf4j.Slf4j;
