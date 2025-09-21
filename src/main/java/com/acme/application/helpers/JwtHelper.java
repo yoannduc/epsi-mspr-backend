@@ -3,8 +3,6 @@ package com.acme.application.helpers;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -17,14 +15,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.acme.application.exceptions.AccessDeniedException;
 
 public class JwtHelper {
-	private static String secret = "bXlzdXBlcnNlY3JldAo=";
-
 	private static final int MINUTES = 60;
 	
-	private static SecretKey getSigningKey() {
-		byte[] keyBytes = Decoders.BASE64.decode(secret);
-		return Keys.hmacShaKeyFor(keyBytes);
-	}
+	private static final SecretKey secret = Jwts.SIG.HS256.key().build();
 
 	public static String generateToken(String email) {
 		var now = Instant.now();
@@ -32,8 +25,7 @@ public class JwtHelper {
 	    		.subject(email)
 	    		.issuedAt(Date.from(now))
 	    		.expiration(Date.from(now.plus(MINUTES, ChronoUnit.MINUTES)))
-	    		//.signWith(getSigningKey())
-	    		.signWith(Jwts.SIG.HS256.key().build())
+	    		.signWith(secret)
 	    		.compact();
 	}
 
@@ -50,8 +42,7 @@ public class JwtHelper {
 		try {
 			return Jwts
 					.parser()
-					//.verifyWith(getSigningKey())
-					.verifyWith(Jwts.SIG.HS256.key().build())
+					.verifyWith(secret)
 					.build()
 					.parseSignedClaims(token)
 					.getPayload();
